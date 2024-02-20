@@ -212,9 +212,9 @@ void RGB_Histograma::equalizar(){
       uint8_t R_indice = round((escala - 1) * R_acumulado[(uint8_t)((float)(*pixel)[0] / tam_escala)]);
       uint8_t G_indice = round((escala - 1) * G_acumulado[(uint8_t)((float)(*pixel)[1] / tam_escala)]);
       uint8_t B_indice = round((escala - 1) * B_acumulado[(uint8_t)((float)(*pixel)[2] / tam_escala)]);
-      (*pixel)[0] = round(R_indice * map_escala);
-      (*pixel)[1] = round(G_indice * map_escala);
-      (*pixel)[2] = round(B_indice * map_escala);
+      (*pixel)[0] = round(tam_escala * (R_indice + 1) - 1);
+      (*pixel)[1] = round(tam_escala * (G_indice + 1) - 1);
+      (*pixel)[2] = round(tam_escala * (B_indice + 1) - 1);
     }
   }
 }

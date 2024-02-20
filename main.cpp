@@ -8,7 +8,7 @@ using std::endl;
 int main(){
   PPM_Img img("teste/ppm/pimentoes.ppm");
   {
-    RGB_Histograma histograma = img.getHistograma(8);
+    RGB_Histograma histograma = img.getHistograma(64);
     cout << histograma.relToString(3);
     histograma.equalizar();
   }
