@@ -8,7 +8,7 @@
 using std::string;
 
 class RGB_pixel;
-typedef struct RGB_Histograma RGB_Histograma;
+//typedef struct RGB_Histograma RGB_Histograma;
 class RGB_Img;
 
 class RGB_pixel {
@@ -25,7 +25,7 @@ public:
   }
 };
 
-struct RGB_Histograma {
+/*struct RGB_Histograma {
 private:
   uint8_t escala;
 public:
@@ -44,7 +44,7 @@ public:
   string relToString(uint8_t precisao = 2);
   uint8_t getEscala() { return escala; }
   void equalizar();
-};
+};*/
 
 class RGB_Img : public Img{
 protected:
@@ -94,9 +94,9 @@ public:
     return this->largura;
   }
 
-  RGB_Histograma getHistograma(uint8_t escala){
+  /*RGB_Histograma getHistograma(uint8_t escala){
     return RGB_Histograma(this, escala);
-  }
+  }*/
 
   RGB_pixel *getPixel(uint32_t linha, uint32_t coluna){
     return this->matriz[linha][coluna];
@@ -114,7 +114,7 @@ public:
   }  
 };
 
-RGB_Histograma::RGB_Histograma(RGB_Img *img, uint16_t escala){
+/*RGB_Histograma::RGB_Histograma(RGB_Img *img, uint16_t escala){
   float tam_escala = (float)img->qntTons() / escala;
   qnt_pixels = img->getAltura() * img->getLargura();
   ref_img = img;
@@ -193,7 +193,7 @@ string RGB_Histograma::relToString(uint8_t precisao){
 
 void RGB_Histograma::equalizar(){
   float tam_escala = (float)ref_img->qntTons() / escala;
-  float map_escala = (float)ref_img->qntTons() / (escala - 1);
+  float map_escala = (float)(ref_img->qntTons() - 1) / (escala - 1);
   float soma_R = 0, soma_G = 0, soma_B = 0;
   float R_acumulado[escala];
   float G_acumulado[escala];
@@ -212,11 +212,11 @@ void RGB_Histograma::equalizar(){
       uint8_t R_indice = round((escala - 1) * R_acumulado[(uint8_t)((float)(*pixel)[0] / tam_escala)]);
       uint8_t G_indice = round((escala - 1) * G_acumulado[(uint8_t)((float)(*pixel)[1] / tam_escala)]);
       uint8_t B_indice = round((escala - 1) * B_acumulado[(uint8_t)((float)(*pixel)[2] / tam_escala)]);
-      (*pixel)[0] = round(tam_escala * (R_indice + 1) - 1);
-      (*pixel)[1] = round(tam_escala * (G_indice + 1) - 1);
-      (*pixel)[2] = round(tam_escala * (B_indice + 1) - 1);
+      (*pixel)[0] = round(R_indice * map_escala);
+      (*pixel)[1] = round(G_indice * map_escala);
+      (*pixel)[2] = round(B_indice * map_escala);
     }
   }
-}
+}*/
 
 #endif
